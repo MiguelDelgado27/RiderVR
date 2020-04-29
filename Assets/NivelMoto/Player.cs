@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float acceleration = 0.5f;
+    public float acceleration = 0.6f;
     public float maximunSpeed = 10f;
     public float obstacleSlowDown = 0.25f;
     private float speed = 0f;
