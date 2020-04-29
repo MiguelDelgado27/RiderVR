@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private float speed = 0f;
     public bool reachedFinishLine = false;
     public AudioSource vaquitamu;
+    //public AudioSource pedaleo;
 
     // Start is called before the first frame update
     [SerializeField] private GameObject pausePanel;
@@ -17,6 +18,8 @@ public class Player : MonoBehaviour
     {
         pausePanel.SetActive(false);    
         vaquitamu = GetComponent<AudioSource>();
+        //pedaleo = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -47,6 +50,7 @@ public class Player : MonoBehaviour
 
         if (speed < 0)
         {
+            //detener pedaleo
             speed = 0;
         }
 
@@ -63,6 +67,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey("up")) {
             if (acceleration < 0) {
                 acceleration *= -1;
+                //reproducir pedaleo
             }
             transform.parent.position += direction.normalized * speed * Time.deltaTime;
         }
