@@ -9,17 +9,29 @@ public class Player : MonoBehaviour
     public float obstacleSlowDown = 0.25f;
     private float speed = 0f;
     public bool reachedFinishLine = false;
-    public AudioSource vaquitamu;
+    public bool playPedaleo = false;
+    public AudioClip vaquitamu;
+    public AudioClip pedaleo;
+    public AudioSource audioSourceVaquita;
+    public AudioSource audioSourcePedalo;
     //public AudioSource pedaleo;
 
     // Start is called before the first frame update
     [SerializeField] private GameObject pausePanel;
     void Start()
     {
-        pausePanel.SetActive(false);    
-        vaquitamu = GetComponent<AudioSource>();
-        //pedaleo = GetComponent<AudioSource>();
-        
+        pausePanel.SetActive(false);
+        audioSourceVaquita = AddAudio(false, false, 1.0f);
+        audioSourcePedalo = AddAudio(true, false, 0.1f);
+    }
+
+    public AudioSource AddAudio(bool loop, bool playAwake, float vol)
+    {
+        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
+        newAudio.loop = loop;
+        newAudio.playOnAwake = playAwake;
+        newAudio.volume = vol;
+        return newAudio;
     }
 
     // Update is called once per frame
@@ -43,6 +55,18 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(transform.parent.forward.x, 0, transform.parent.forward.z);
 
         speed += acceleration * Time.deltaTime;
+
+        // Control pedaling volume if user is pedaling or not.
+
+        if (playPedaleo)
+        {
+            audioSourcePedalo.volume *= 1.018f;
+        }
+        else {
+            audioSourcePedalo.volume /= 1.02f;
+        }
+            
+
         if (speed > maximunSpeed)
         {
             speed = maximunSpeed;
@@ -65,7 +89,15 @@ public class Player : MonoBehaviour
         // transform.parent.position += direction.normalized * speed * Time.deltaTime;
 
         if (Input.GetKey("up")) {
+
+            if (!playPedaleo) {
+                audioSourcePedalo.clip = pedaleo;
+                audioSourcePedalo.Play();
+                playPedaleo = true;
+            }
+            
             if (acceleration < 0) {
+                
                 acceleration *= -1;
                 //reproducir pedaleo
             }
@@ -75,6 +107,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyUp("up"))
         {
             acceleration *= -1;
+            playPedaleo = false;
         }
 
 
@@ -94,7 +127,9 @@ public class Player : MonoBehaviour
     {
         if (otherCollider.tag == "Obstacle")
         {
-            vaquitamu.Play();
+            audioSourceVaquita.clip = vaquitamu;
+            audioSourceVaquita.Play();
+            audioSourcePedalo.volume *= 0.20f;
             speed *= obstacleSlowDown;
         }
         else if (otherCollider.tag == "FinishLine") {
