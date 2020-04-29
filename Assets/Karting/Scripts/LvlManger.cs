@@ -18,6 +18,7 @@ public class LvlManger : MonoBehaviour
     }
 
     public void loadLevel(string pNombreNivel){
+        Time.timeScale = 1;
         SceneManager.LoadScene(pNombreNivel); 
     }
 }
