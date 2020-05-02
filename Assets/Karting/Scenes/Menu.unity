@@ -583,7 +583,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Selecciona un mapa
+  m_text: Selecciona un escenario
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0e141b3397d234c8685509c5d77ebcf1, type: 2}
   m_sharedMaterial: {fileID: 21962088495682642, guid: 0e141b3397d234c8685509c5d77ebcf1,
@@ -613,7 +613,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 56.25
+  m_fontSize: 46.3
   m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -654,7 +654,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 404267169}
-    characterCount: 18
+    characterCount: 23
     spriteCount: 0
     spaceCount: 2
     wordCount: 3
